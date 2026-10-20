@@ -91,9 +91,10 @@ Amazon先确认Riyadh；currently unavailable且无当前可售报价才写OOS�
 新建组、同日重跑和失败恢复都执行；实时定位当天列，不把某次运行的G/H/J列号写死。数据类型和格式分别处理：OOS仍是文本，数字售价仍是数值。
 
 1. 对当天Price / Offer Price从首个产品行到本次最后产品行，用repeatCell仅设置userEnteredFormat.horizontalAlignment=RIGHT，fields仅为userEnteredFormat.horizontalAlignment。包括数字、OOS及空白正文；不覆盖字段/日期行、MSRP或buy box，不修改数字格式、字体、底色、边框、验证或值。每批后读回OOS的effectiveFormat.horizontalAlignment应为RIGHT；轮次结束复核整个售价正文。
-2. 每轮回写结束、旧自动Note清理完成后，检查当天Note正文。存在文字时保持单行，若已有WRAP则只对当天Note正文把wrapStrategy改为OVERFLOW_CELL，fields只用userEnteredFormat.wrapStrategy，再对该一个Note列使用autoResizeDimensions，按包含完整卖家名的最长内容适配。保留字号、行高、字符串及英文/阿拉伯文文字方向，不改为省略号、不靠溢出到邻列显示。
-3. 当天Note正文全空时不自动缩窄：复用组保留现有宽度，新组沿用模板宽度。历史Note列和其他列不参与自动列宽，也不整表autofit。日期合并范围与表头样式不变。
-4. 数值请求、水平对齐请求、单行显示请求和单列列宽请求分别记录；复核允许变化仅为这些字段和目标范围。列宽/格式修复不得计为新增网页核验或新查价。Google Sheets正常缩放下检查OOS、最长英文Note、阿拉伯文Note及相邻列，确认单行完整可见。
+2. 对当天Note从首个产品行到本次最后产品行，用repeatCell仅设置userEnteredFormat.textDirection=LEFT_TO_RIGHT、userEnteredFormat.horizontalAlignment=LEFT，fields仅为userEnteredFormat.textDirection,userEnteredFormat.horizontalAlignment。新建、复用及同日重跑均执行，包括空白正文，不覆盖Note表头、日期行或其他列。所有备注以英文前缀sold by开始，店铺原名随后显示；阿语店名内部保持自然阿语阅读顺序。保留字符串原文，不翻译、不反转店名字母/单词、不插入LRM/RLM或其他隐藏方向控制字符，不把整表改成从左到右。
+3. 每轮回写结束、旧自动Note清理完成后，检查当天Note正文。存在文字时保持单行，若已有WRAP则只对当天Note正文把wrapStrategy改为OVERFLOW_CELL，fields只用userEnteredFormat.wrapStrategy；先完成上述Note方向/左对齐，再对该一个Note列使用autoResizeDimensions，按完整卖家名适配。保留字号、行高和字符串，不改为省略号、不靠溢出到邻列显示。
+4. 当天Note正文全空时不自动缩窄：复用组保留现有宽度，新组沿用模板宽度。历史Note列和其他列不参与自动列宽，也不整表autofit。日期合并范围与表头样式不变。
+5. 数值请求、售价水平对齐请求、Note方向/左对齐请求、单行显示请求和单列列宽请求分别记录；复核允许变化仅为这些字段和目标范围。列宽/格式修复不得计为新增网页核验或新查价。Google Sheets正常缩放下检查OOS、最长英文Note、阿拉伯文Note及相邻列，确认sold by在左且店名随后完整单行可见。
 
 例如当天Noon组已定位为L:N，产品行3至55，仅统一Price正文的右对齐：
 
@@ -107,7 +108,19 @@ Amazon先确认Riyadh；currently unavailable且无当前可售报价才写OOS�
 }
 ```
 
-同组Note=N且正文有内容时，单列适配请求为：
+同组Note=N，先统一Note正文的方向和左对齐：
+
+```json
+{
+  "repeatCell": {
+    "range": {"sheetId": 0, "startRowIndex": 2, "endRowIndex": 55, "startColumnIndex": 13, "endColumnIndex": 14},
+    "cell": {"userEnteredFormat": {"textDirection": "LEFT_TO_RIGHT", "horizontalAlignment": "LEFT"}},
+    "fields": "userEnteredFormat.textDirection,userEnteredFormat.horizontalAlignment"
+  }
+}
+```
+
+Note=N且正文有内容时，单列适配请求为：
 
 ```json
 {
@@ -124,8 +137,8 @@ Amazon先确认Riyadh；currently unavailable且无当前可售报价才写OOS�
 1. 创建或复用当天组并读回复核日期与字段，保存所有历史组和基础列基线。
 2. 对每个产品保存原始/实际URL、编号、页内证据、价格显示状态、库存、seller/shipper、成色、运费和时间；Noon另存Status表头位置、行状态及EOL例外依据。
 3. 5–15行一批，写前重读日期、行身份、Noon的Status和目标旧值，防止列组移动、换链接、状态变更或并发覆盖。
-4. 写后逐格读回数字、文本OOS、空白及卖家Note，检查OOS与数字售价右对齐、缺链接自动Note留空及EOL行三项留空是否成立。返回成功标志不能替代数据复核；结果不明先读回再补写，不盲目重试整批。
-5. 对比历史组与基础列仍一致，格式变化仅限新组创建及当天售价正文右对齐、Note单行显示；列宽变化仅限有内容的当天Note列。轮次结束完成单列自动适配与实际显示复核，核对未把昨日值复制到当天。
+4. 写后逐格读回数字、文本OOS、空白及卖家Note，检查OOS与数字售价右对齐、Note从左到右/左对齐且视觉上sold by先于店名、缺链接自动Note留空及EOL行三项留空是否成立。返回成功标志不能替代数据复核；结果不明先读回再补写，不盲目重试整批。
+5. 对比历史组与基础列仍一致，格式变化仅限新组创建及当天售价正文右对齐、Note从左到右、左对齐和单行显示；列宽变化仅限有内容的当天Note列。轮次结束完成单列自动适配与实际显示复核，核对未把昨日值复制到当天。
 6. 分开统计新增/复用列组、完整页面核验、EOL跳过、部分字段核验、实际写入及复核成功、普通OOS缺货、缺链接、失败和人工冲突；EOL自动清理格数另报，EOL不混入普通OOS/失败数。没有变化可报告“已核验，无需改值”，不能虚增写入数。
 
 逐行记录包含run_date/timezone、当天组范围、sheetId/row/product_id、original_url/observed_url、checked_at、字段present/absent/unknown、stock_status、Noon Status及EOL例外、before/after、归属、写入和复核状态。详细记录和失败行只进巡店记录/报告，Note仅用于实际非平台卖家。

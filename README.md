@@ -115,3 +115,5 @@ docs/                    自动化和行为验收说明
 技能中没有内置个人表格链接、账号凭据、会话信息或本机路径。只有已经明确授权的目标表格才能作为巡店回写对象。
 
 参考：[OpenAI技能说明](https://learn.chatgpt.com/docs/build-skills)、[自动化说明](https://learn.chatgpt.com/docs/automations)。
+
+卖家Note正文统一从左到右并左对齐（textDirection=LEFT_TO_RIGHT、horizontalAlignment=LEFT），视觉顺序为`sold by 店铺原名`。阿语店名保留原文和内部正常阅读顺序，不翻译、不倒序、不加入隐藏方向控制字符。只修改当天Note正文的单元格格式，不改变整张表的方向或历史日期组；新建组、同日重跑和写后复核均执行此规则。
