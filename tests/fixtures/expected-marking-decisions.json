@@ -1,0 +1,447 @@
+{
+  "note": "Synthetic acceptance baseline; no live requests or spreadsheet mutations.",
+  "cases": [
+    {
+      "id": "noon_normal",
+      "final_target_values": {
+        "I3": 199,
+        "J3": 85,
+        "K3": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "I3",
+          "before": null,
+          "after": 199,
+          "action": "set"
+        },
+        {
+          "cell": "J3",
+          "before": null,
+          "after": 85,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_no_strike",
+      "final_target_values": {
+        "I4": null,
+        "J4": 129,
+        "K4": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "J4",
+          "before": null,
+          "after": 129,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_unavailable_stale_price",
+      "final_target_values": {
+        "I5": 199,
+        "J5": "OOS",
+        "K5": "sold by Market A"
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "I5",
+          "before": null,
+          "after": 199,
+          "action": "set"
+        },
+        {
+          "cell": "J5",
+          "before": null,
+          "after": "OOS",
+          "action": "set"
+        },
+        {
+          "cell": "K5",
+          "before": null,
+          "after": "sold by Market A",
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_eol_new",
+      "final_target_values": {
+        "I6": null,
+        "J6": null,
+        "K6": null
+      },
+      "classification": "EOL跳过",
+      "mutations": [],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_eol_retry",
+      "final_target_values": {
+        "I7": null,
+        "J7": null,
+        "K7": null
+      },
+      "classification": "EOL跳过",
+      "mutations": [
+        {
+          "cell": "I7",
+          "before": 199,
+          "after": null,
+          "action": "clear"
+        },
+        {
+          "cell": "J7",
+          "before": 85,
+          "after": null,
+          "action": "clear"
+        },
+        {
+          "cell": "K7",
+          "before": "sold by Market A",
+          "after": null,
+          "action": "clear"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_eol_human",
+      "final_target_values": {
+        "I8": null,
+        "J8": null,
+        "K8": "人工：需商务确认"
+      },
+      "classification": "EOL跳过；人工/公式冲突",
+      "mutations": [
+        {
+          "cell": "I8",
+          "before": 199,
+          "after": null,
+          "action": "clear"
+        },
+        {
+          "cell": "J8",
+          "before": "OOS",
+          "after": null,
+          "action": "clear"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_eol_in_stock",
+      "final_target_values": {
+        "I9": 199,
+        "J9": 79,
+        "K9": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "I9",
+          "before": null,
+          "after": 199,
+          "action": "set"
+        },
+        {
+          "cell": "J9",
+          "before": null,
+          "after": 79,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_unknown_status",
+      "final_target_values": {
+        "I10": null,
+        "J10": null,
+        "K10": null
+      },
+      "classification": "部分核验/网页失败",
+      "mutations": [],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_unavailable",
+      "final_target_values": {
+        "K3": 119,
+        "L3": "OOS",
+        "M3": 0,
+        "N3": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "K3",
+          "before": null,
+          "after": 119,
+          "action": "set"
+        },
+        {
+          "cell": "L3",
+          "before": null,
+          "after": "OOS",
+          "action": "set"
+        },
+        {
+          "cell": "M3",
+          "before": null,
+          "after": 0,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_third_party_fulfilled",
+      "final_target_values": {
+        "K4": 119,
+        "L4": 89,
+        "M4": 0,
+        "N4": "sold by Market C"
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "K4",
+          "before": null,
+          "after": 119,
+          "action": "set"
+        },
+        {
+          "cell": "L4",
+          "before": null,
+          "after": 89,
+          "action": "set"
+        },
+        {
+          "cell": "M4",
+          "before": null,
+          "after": 0,
+          "action": "set"
+        },
+        {
+          "cell": "N4",
+          "before": null,
+          "after": "sold by Market C",
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_self",
+      "final_target_values": {
+        "K5": null,
+        "L5": 79,
+        "M5": 1,
+        "N5": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "L5",
+          "before": null,
+          "after": 79,
+          "action": "set"
+        },
+        {
+          "cell": "M5",
+          "before": null,
+          "after": 1,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_failed",
+      "final_target_values": {
+        "K6": null,
+        "L6": null,
+        "M6": null,
+        "N6": null
+      },
+      "classification": "部分核验/网页失败",
+      "mutations": [],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_recovered",
+      "final_target_values": {
+        "I11": null,
+        "J11": 90,
+        "K11": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "I11",
+          "before": 199,
+          "after": null,
+          "action": "clear"
+        },
+        {
+          "cell": "J11",
+          "before": "OOS",
+          "after": 90,
+          "action": "set"
+        },
+        {
+          "cell": "K11",
+          "before": "缺货",
+          "after": null,
+          "action": "clear"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_other_offers",
+      "final_target_values": {
+        "K7": null,
+        "L7": 90,
+        "M7": 0,
+        "N7": "sold by Market E"
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "L7",
+          "before": null,
+          "after": 90,
+          "action": "set"
+        },
+        {
+          "cell": "M7",
+          "before": null,
+          "after": 0,
+          "action": "set"
+        },
+        {
+          "cell": "N7",
+          "before": null,
+          "after": "sold by Market E",
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_unknown_seller",
+      "final_target_values": {
+        "K8": null,
+        "L8": 89,
+        "M8": null,
+        "N8": null
+      },
+      "classification": "部分核验/网页失败",
+      "mutations": [
+        {
+          "cell": "L8",
+          "before": null,
+          "after": 89,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_unknown_seller_other_shipper",
+      "final_target_values": {
+        "K9": 119,
+        "L9": 89,
+        "M9": 0,
+        "N9": null
+      },
+      "classification": "部分核验/网页失败",
+      "mutations": [
+        {
+          "cell": "K9",
+          "before": null,
+          "after": 119,
+          "action": "set"
+        },
+        {
+          "cell": "L9",
+          "before": null,
+          "after": 89,
+          "action": "set"
+        },
+        {
+          "cell": "M9",
+          "before": null,
+          "after": 0,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_third_shipper_self_seller",
+      "final_target_values": {
+        "K10": 119,
+        "L10": 89,
+        "M10": 0,
+        "N10": null
+      },
+      "classification": "完成页面核验",
+      "mutations": [
+        {
+          "cell": "K10",
+          "before": null,
+          "after": 119,
+          "action": "set"
+        },
+        {
+          "cell": "L10",
+          "before": null,
+          "after": 89,
+          "action": "set"
+        },
+        {
+          "cell": "M10",
+          "before": null,
+          "after": 0,
+          "action": "set"
+        }
+      ],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "amazon_wrong_region",
+      "final_target_values": {
+        "K11": null,
+        "L11": null,
+        "M11": null,
+        "N11": null
+      },
+      "classification": "部分核验/网页失败",
+      "mutations": [],
+      "historical_or_base_data_may_change": false
+    },
+    {
+      "id": "noon_failed_retry",
+      "final_target_values": {
+        "I12": 199,
+        "J12": 85,
+        "K12": "sold by Market G"
+      },
+      "classification": "部分核验/网页失败",
+      "mutations": [],
+      "historical_or_base_data_may_change": false
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "spreadsheet_url": "",
+  "sheets": {
+    "noon": {
+      "title": "Noon"
+    },
+    "amazon": {
+      "title": "Amazon"
+    }
+  },
+  "date_timezone": "Asia/Shanghai",
+  "suggested_schedule": {
+    "time": "09:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "amazon_delivery_location": "Riyadh, Saudi Arabia"
+}

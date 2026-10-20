@@ -1,0 +1,339 @@
+{
+  "common": {
+    "run_date": "2026/10/20",
+    "timezone": "Asia/Shanghai",
+    "group_already_exists": true,
+    "identity_and_link_verified": true,
+    "page_fully_loaded": true,
+    "Noon": {
+      "base_headers": {
+        "C1": "Status",
+        "E1": "LINK",
+        "F1": "MSRP"
+      },
+      "today_columns": {
+        "MSRP": "I",
+        "Price": "J",
+        "Note": "K"
+      },
+      "history_columns": "F:H",
+      "historical_example": [
+        199,
+        85,
+        "缺货"
+      ]
+    },
+    "Amazon": {
+      "delivery_location": "Riyadh, Saudi Arabia",
+      "today_columns": {
+        "MSRP(SAR)": "K",
+        "Offer Price": "L",
+        "buy box": "M",
+        "Note": "N"
+      },
+      "history_columns": "G:J",
+      "historical_example": [
+        119,
+        89,
+        1,
+        "保留历史"
+      ]
+    },
+    "default_target_values": "blank",
+    "provenance": "old values marked audit match a same-day write log; human and unknown origins are separate"
+  },
+  "cases": [
+    {
+      "id": "noon_normal",
+      "platform": "Noon",
+      "row": 3,
+      "status": "Available",
+      "page": {
+        "stock": "in_stock",
+        "strike": 199,
+        "price": 85,
+        "seller": "noon"
+      }
+    },
+    {
+      "id": "noon_no_strike",
+      "platform": "Noon",
+      "row": 4,
+      "status": "Available",
+      "page": {
+        "stock": "in_stock",
+        "strike": "confirmed_absent",
+        "price": 129,
+        "seller": "noon"
+      }
+    },
+    {
+      "id": "noon_unavailable_stale_price",
+      "platform": "Noon",
+      "row": 5,
+      "status": "Available",
+      "page": {
+        "banner": "This product is not available",
+        "stock": "out_of_stock",
+        "strike": 199,
+        "stale_display_price": 85,
+        "seller": "Market A",
+        "seller_role": "actual_seller_of_same_product"
+      }
+    },
+    {
+      "id": "noon_eol_new",
+      "platform": "Noon",
+      "row": 6,
+      "status": " EOL ",
+      "page": {
+        "banner": "This product is not available",
+        "stock": "out_of_stock",
+        "strike": 299,
+        "stale_display_price": 99,
+        "seller": "Market B",
+        "seller_role": "actual_seller_of_same_product"
+      }
+    },
+    {
+      "id": "noon_eol_retry",
+      "platform": "Noon",
+      "row": 7,
+      "status": "EOL",
+      "today": {
+        "I7": 199,
+        "J7": 85,
+        "K7": "sold by Market A"
+      },
+      "origin": {
+        "I7": "audit",
+        "J7": "audit",
+        "K7": "audit"
+      },
+      "page": {
+        "banner": "This product is not available",
+        "stock": "out_of_stock",
+        "strike": 199,
+        "seller": "Market A"
+      }
+    },
+    {
+      "id": "noon_eol_human",
+      "platform": "Noon",
+      "row": 8,
+      "status": "EOL",
+      "today": {
+        "I8": 199,
+        "J8": "OOS",
+        "K8": "人工：需商务确认"
+      },
+      "origin": {
+        "I8": "audit",
+        "J8": "audit",
+        "K8": "human"
+      },
+      "page": {
+        "banner": "This product is not available",
+        "stock": "out_of_stock",
+        "seller": "confirmed_absent"
+      }
+    },
+    {
+      "id": "noon_eol_in_stock",
+      "platform": "Noon",
+      "row": 9,
+      "status": "EOL",
+      "page": {
+        "stock": "in_stock",
+        "strike": 199,
+        "price": 79,
+        "seller": "noon"
+      }
+    },
+    {
+      "id": "noon_unknown_status",
+      "platform": "Noon",
+      "row": 10,
+      "status": "unknown_read_error",
+      "page": {
+        "banner": "This product is not available",
+        "stock": "out_of_stock",
+        "strike": 199,
+        "seller": "Market A"
+      }
+    },
+    {
+      "id": "amazon_unavailable",
+      "platform": "Amazon",
+      "row": 3,
+      "page": {
+        "banner": "Currently unavailable.",
+        "stock": "out_of_stock",
+        "all_buying_options": "confirmed_no_sale_offers",
+        "strike": 119,
+        "stale_display_price": 89,
+        "seller": "confirmed_absent",
+        "shipper": "confirmed_absent"
+      }
+    },
+    {
+      "id": "amazon_third_party_fulfilled",
+      "platform": "Amazon",
+      "row": 4,
+      "page": {
+        "stock": "in_stock",
+        "featured_offer": true,
+        "strike": 119,
+        "price": 89,
+        "seller": "Market C",
+        "shipper": "Amazon.sa"
+      }
+    },
+    {
+      "id": "amazon_self",
+      "platform": "Amazon",
+      "row": 5,
+      "page": {
+        "stock": "in_stock",
+        "featured_offer": true,
+        "strike": "confirmed_absent",
+        "price": 79,
+        "seller": "Amazon.sa",
+        "shipper": "Amazon.sa"
+      }
+    },
+    {
+      "id": "amazon_failed",
+      "platform": "Amazon",
+      "row": 6,
+      "page_fully_loaded": false,
+      "page": {
+        "navigation_only": true,
+        "retry_outcome": "unreadable_after_two_reloads"
+      }
+    },
+    {
+      "id": "noon_recovered",
+      "platform": "Noon",
+      "row": 11,
+      "status": "Available",
+      "today": {
+        "I11": 199,
+        "J11": "OOS",
+        "K11": "缺货"
+      },
+      "origin": {
+        "I11": "audit",
+        "J11": "audit",
+        "K11": "audit"
+      },
+      "page": {
+        "stock": "in_stock",
+        "strike": "confirmed_absent",
+        "price": 90,
+        "seller": "noon"
+      }
+    },
+    {
+      "id": "amazon_other_offers",
+      "platform": "Amazon",
+      "row": 7,
+      "page": {
+        "stock": "in_stock_via_options",
+        "featured_offer": false,
+        "strike": "confirmed_absent",
+        "buying_options": [
+          {
+            "condition": "new",
+            "price": 80,
+            "shipping": 20,
+            "seller": "Market D",
+            "shipper": "Market D"
+          },
+          {
+            "condition": "new",
+            "price": 90,
+            "shipping": 0,
+            "seller": "Market E",
+            "shipper": "Amazon.sa"
+          }
+        ]
+      }
+    },
+    {
+      "id": "amazon_unknown_seller",
+      "platform": "Amazon",
+      "row": 8,
+      "page": {
+        "stock": "in_stock",
+        "featured_offer": true,
+        "strike": "confirmed_absent",
+        "price": 89,
+        "seller": "unknown_after_retries",
+        "shipper": "Amazon.sa"
+      }
+    },
+    {
+      "id": "amazon_unknown_seller_other_shipper",
+      "platform": "Amazon",
+      "row": 9,
+      "page": {
+        "stock": "in_stock",
+        "featured_offer": true,
+        "strike": 119,
+        "price": 89,
+        "seller": "unknown_after_retries",
+        "shipper": "Market F"
+      }
+    },
+    {
+      "id": "amazon_third_shipper_self_seller",
+      "platform": "Amazon",
+      "row": 10,
+      "page": {
+        "stock": "in_stock",
+        "featured_offer": true,
+        "strike": 119,
+        "price": 89,
+        "seller": "Amazon.sa",
+        "shipper": "Market F"
+      }
+    },
+    {
+      "id": "amazon_wrong_region",
+      "platform": "Amazon",
+      "row": 11,
+      "delivery_location": "Jeddah, Saudi Arabia",
+      "region_reset_result": "failed",
+      "page": {
+        "stock": "in_stock",
+        "featured_offer": true,
+        "strike": 119,
+        "price": 89,
+        "seller": "Amazon.sa",
+        "shipper": "Amazon.sa"
+      }
+    },
+    {
+      "id": "noon_failed_retry",
+      "platform": "Noon",
+      "row": 12,
+      "status": "Available",
+      "today": {
+        "I12": 199,
+        "J12": 85,
+        "K12": "sold by Market G"
+      },
+      "origin": {
+        "I12": "audit",
+        "J12": "audit",
+        "K12": "audit"
+      },
+      "page_fully_loaded": false,
+      "page": {
+        "navigation_only": true,
+        "retry_outcome": "unreadable_after_two_reloads"
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "沙特电商巡店"
+  short_description: "每日新增日期列组，核查沙特Noon与Amazon价格、卖家及库存，保留历史"
+  default_prompt: "使用 $saudi-store-audit 完成今日Noon和Amazon巡店，确认目标表格配置后，在指定原表右侧创建或复用今天的日期列组，保留历史；缺货在Price／Offer Price填OOS，Note只写sold by实际非平台卖家；Noon页面不可用且Status=EOL时当天三项留空，分批回写并复核。"
