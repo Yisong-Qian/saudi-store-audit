@@ -10,7 +10,14 @@
   },
   "date_timezone": "Asia/Shanghai",
   "suggested_schedule": {
-    "time": "09:00",
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+    ],
+    "time": "10:00",
     "timezone": "Asia/Shanghai"
   },
   "amazon_delivery_location": "Riyadh, Saudi Arabia"

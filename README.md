@@ -19,7 +19,8 @@
 - 有内容的当天Note按完整文字自动列宽、单行显示；全空Note列保持宽度，不缩小字体、不增加行高，不调整历史列。
 - Noon 显示 `This product is not available` 且同行 Status=EOL 时，当天 MSRP、Price、Note 均留空。Status 按表头定位；同日重跑仅清理当天自动结果，保留人工内容和历史。
 - Amazon 先设配送地区为 Riyadh, Saudi Arabia。存在默认报价且发货方与卖家均为 Amazon.sa 时 buy box=1；明确不符合或没有当前可售/默认报价时为0；证据不足留空。
-- 每个商品按原表链接核实同一变体，通常5–15行一批写入，并逐格读回复核。
+- 每行按原表超链接打开的沙特商品页和主报价取价。表内型号、编号或规格差异不阻止采价；缺链接不猜。通常5–15行一批写入，并逐格读回复核。
+- Noon 首轮遇到 `Access Denied` 先入队。查完其他商品后按原链接逐个重开，按提示等待或延长间隔分轮重试。恢复后写回当天组；到时限或遇到明确权限阻塞时报告待核实行。
 
 完整判断规则见 [SKILL.md](skills/saudi-store-audit/SKILL.md) 和 [回写规则](skills/saudi-store-audit/references/writeback.md)。
 
@@ -59,7 +60,7 @@ python3 scripts/skill_manager.py install
     "amazon": {"title": "Amazon"}
   },
   "date_timezone": "Asia/Shanghai",
-  "suggested_schedule": {"time": "09:00", "timezone": "Asia/Shanghai"},
+  "suggested_schedule": {"days": ["Mon", "Tue", "Wed", "Thu", "Fri"], "time": "10:00", "timezone": "Asia/Shanghai"},
   "amazon_delivery_location": "Riyadh, Saudi Arabia"
 }
 ```
@@ -84,7 +85,7 @@ python3 scripts/skill_manager.py install
 
 ## 每日自动执行
 
-安装后向 Codex 明确要求创建每日任务，例如“每天北京时间09:00使用这个Skill巡检我的已配置表格”。建议时间对应沙特时间04:00；可以按需要修改。
+向 Codex 明确要求设置或更新巡店任务，例如“每周一至周五北京时间 10:00（沙特 05:00）使用这个 Skill 巡检我的已配置表格”。示例周末不运行、不补抓；星期、时刻和时区可按需要配置。
 
 调度由 Codex 应用管理，配置文件里的建议时刻不会自动启用任务。涉及本机技能和浏览器时，需要电脑与应用保持运行，并保持相关连接可用。详细设置和可复制提示见 [每日自动化](docs/automation.md)。
 
