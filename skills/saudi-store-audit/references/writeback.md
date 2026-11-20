@@ -39,7 +39,7 @@ Amazon先确认Riyadh；currently unavailable且无当前可售报价才写OOS�
 
 只写当天组，不改历史组与人工内容，写后随当批回写一起读回复核。
 
-- **价格变动超 20% 只标红，不写备注、不标黄**：把当天 Price（Noon）/ Offer Price（Amazon）格的数字字体标红（foregroundColor RGB 1,0,0）；Note 格不写价格变动说明。格式请求用 repeatCell，fields 仅为 userEnteredFormat.textFormat.foregroundColor。
+- **当天价格有变动只标红，不写备注、不标黄**：与昨日相比、两日均为数字售价且数值不同时，把当天 Price（Noon）/ Offer Price（Amazon）格的数字字体标红（foregroundColor RGB 1,0,0）；只标售价格，MSRP 格不标红；缺货/OOS 状态变化不标红。Note 格不写价格变动说明。格式请求用 repeatCell，fields 仅为 userEnteredFormat.textFormat.foregroundColor。
 - **卖家变化、buy box 变化不写备注、不标黄**：Note 格按正常规则写当前卖家（如 `sold by 实际非平台卖家名`）或空白，buy box 格写当前值；变化通过与昨日组对比可见，不再另写说明。
 - **唯一标黄加备注的情形是需人工审核**：页面加载失败、被拦截、未核实的行，当天 Note 格背景填黄色（RGB 1,1,0），并在该格单元格备注写明原因，如「页面加载失败，未核实」「页面被拦截，未核实」。其他情形一律不写备注、不标黄。黄色格式请求用 repeatCell，fields 仅为 userEnteredFormat.backgroundColor。
 - 已确认缺货只在售价写 `OOS`，不写备注、不标黄；EOL 三项留空，不标注。Noon 只适用价格变动与打不开两项。
