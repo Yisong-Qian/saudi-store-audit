@@ -19,7 +19,7 @@
 
 Noon的Status按字段表头定位，不固定列号；同日回写前重读。EOL留空例外要求原链接打开的商品页显示指定不可用提示且该行Status为EOL，EOL但仍在售的商品正常查价。
 
-Amazon先确认Riyadh；以用户登录后的默认视图为准：云端浏览器（Environment 1）已登录用户 Amazon 账号，先确认页眉显示“Hello, Qian”，已登录时直接取页面打开时默认选中的购买方式的价格，不固定优先一次性购买（Amazon.sa）；如果默认选中的是 Amazon Now，即使页面有一性购买选项，也取 Amazon Now 的价格。若发现未登录，不要取匿名浏览器的默认档（匿名默认是 Amazon Now，与用户看到的不一致），改按本地配置 `references/store-config.local.json` 里的 `default_purchase_option` 记录取价，并在报告里注明登录已失效；不要在巡店中自行重新登录。主购买框无价格展示且非缺货时整行留空。currently unavailable且无当前可售报价才写OOS。所记录报价的Shipper / Seller均为Amazon.sa才填1，否则填0；仍未知不能猜0。
+Amazon先确认Riyadh；以用户登录后的默认视图为准：云端浏览器（Environment 1）已登录用户 Amazon 账号，先确认页眉显示“Hello, Qian”，已登录时直接取页面打开时默认选中的购买方式的价格，不固定优先一次性购买（Amazon.sa）；如果默认选中的是 Amazon Now，即使页面有一性购买选项，也取 Amazon Now 的价格。若发现未登录，不要取匿名浏览器的默认档（匿名默认是 Amazon Now，与用户看到的不一致），也不要按本地配置取值——停止 Amazon 部分的核查，在报告里注明登录已过期、请用户重新登录，等她重新登录后再补跑；Noon 不需要登录，正常进行；不要在巡店中自行重新登录。主购买框无价格展示且非缺货时整行留空。currently unavailable且无当前可售报价才写OOS。所记录报价的Shipper / Seller均为Amazon.sa才填1，否则填0；仍未知不能猜0。
 
 “本次未核实”不能变成0、OOS、确认不存在或历史值。本次生成的Note格子只允许 `sold by <卖家名>`、`N left`、两者组合 `sold by <卖家名>; N left`，或空白；其中卖家名指已核实的非平台卖家或 Amazon Now，Amazon.sa 不写进 Note；页面显示剩余库存标识（如 Only N left in stock）时写 `N left`，数字以页面为准（如仅剩 1 件写 `1 left`）；卖家为 Amazon.sa 或没有实际卖家信息时不写卖家名；不写缺货、OOS、发货方、运费、成色或日期；需人工审核的失败说明写进该格的单元格备注（见异常标注一节），详细证据和失败原因另存报告。商品价不包含另列运费。
 
