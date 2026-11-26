@@ -66,7 +66,7 @@ description: >-
 - **以用户 Chrome 的默认视图为准，优先取一次性购买（Amazon.sa）**：用户登录的 Chrome 打开页面时，默认选中的是一次性购买（One-time purchase，Amazon.sa）；只有没有一次性购买选项时，默认才是 Amazon Now。云端匿名浏览器默认选中的是 Amazon Now，与用户看到的不一致，不能直接取云端默认档。因此打开页面后：若页面有一性购买选项，选中它再读价（取其价格、List Price、卖家与 buy box 判定）；只有没有一次性购买选项时，才取 Amazon Now 的默认报价。两种方式的价格与 List Price 可能不同，记录所选方式对应的价格。一次性购买选项必须在页面上实际看到才记录；看不到就不得记录该价格。
 - **规格匹配**：页面有多个规格/尺寸/款式选项时，记价前必须确认当前选中的规格名与 List Price 与表里该行一致（规格名、List Price 都对上）；页面默认选中其他规格时，切换到正确规格再读价；绝不从规格选项列表里取其他规格的价格。套装（Kit/Bundle/2Pack）须确认选中款式确为表里该套装，单只装与多件装不得混淆。
 - **buy box 判定**：按所记录的那档报价（一性购买优先）的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；确实无法判定卖家/发货方时留空并记报告。
-- **Note 只写非平台卖家**：卖家为 Amazon.sa 或 Amazon Now 时 Note 留空；实际非平台卖家（包括 Amazon UAE）已核实时，Note 只写 `sold by 实际卖家名`。卖家未知不能猜名称。页面显示剩余库存标识时追加 `N left`（见“每日刷新与卖家Note”一节），两者都满足时合并为 `sold by <实际卖家名>; N left`。
+- **Note 卖家写法**：卖家为 Amazon.sa 时 Note 留空；卖家为 Amazon Now 时 Note 写 `sold by Amazon Now`；实际非平台卖家（包括 Amazon UAE）已核实时，Note 只写 `sold by 实际卖家名`。卖家未知不能猜名称。页面显示剩余库存标识时追加 `N left`（见“每日刷新与卖家Note”一节），两者都满足时合并为 `sold by <实际卖家名>; N left`。
 - 页面明确显示 `currently unavailable` 或明确等价缺货提示，且没有当前可售报价时，Offer Price填文本 `OOS`，buy box=0。MSRP仍仅填可核实的可见划线价，无则留空；Note只记录已核实的实际非平台卖家，不写缺货状态。
 - **除缺货外，页面主购买框没有展示价格时，整行留空**：页面只显示“No featured offers available”或类似提示、主购买框无价格时，不打开 See All Buying Options 找价，不记录购买选项里的第三方报价；当天 MSRP、Offer Price、buy box、Note 四项全部留空。页面显示“from SAR X”（如“2 options from SAR185.00”）时，X 就是展示的价格，按默认报价处理，不按此留空。
 - 价格可核实但卖家或发货方未显示：先展开相关购买信息或重试；仍无法核实时可填当天已确认价格；buy box 仍按证据填 0（非 Amazon.sa 主体已确认时）或留空（无法判断时），并在报告明确本次未核实。Note不写核验失败说明，不复制昨天的buy box或卖家。
@@ -78,7 +78,7 @@ description: >-
 - **确认缺失**：完整商品页确认无划线价，则当天MSRP留空；只有同日重跑且当天格属于巡店写入时，才可精确清空该旧格。确认缺货的售价应写 `OOS`，不能因没有数字售价而清空或保留残留数字；Noon的EOL例外优先。历史价格不变。
 - **缺少商品链接**：当天新价格/Buy Box/Note留空，不写核验失败说明。当天已有且可证明由巡店生成的Note须精确清空，包括旧失败说明和旧自动卖家Note；先记录原值、归属及缺链接证据，不要求取得无法打开的商品页。人工备注、公式或归属不明内容保留并报告冲突。已有价格/Buy Box保留为本次未核实，失败行和原因只进入报告，不猜价、不标OOS。
 - **其他无法查证**：访问失败、未打开商品页或未完成加载时，新目标格留空；同日旧值保留并在报告说明本次未核实，不把未知当作缺失。上述缺链接Note清理规则优先于一般失败保留规则；历史格不改。
-- 本次自动生成的Note只能是 `sold by 实际非平台卖家名`、`N left`、两者组合 `sold by <实际非平台卖家名>; N left`，或空白；不写缺货、OOS、核验失败、日期、正常自营说明、发货方、运费或成色。页面显示剩余库存标识（如 Amazon 的 Only N left in stock）时，Note 写 `N left`，数字以页面为准（如仅剩 1 件写 `1 left`）；同时有已核实非平台卖家时写 `sold by <卖家名>; N left`。卖家未知不能猜名称，相关证据和问题另存报告。
+- 本次自动生成的Note只能是 `sold by <卖家名>`、`N left`、两者组合 `sold by <卖家名>; N left`，或空白；其中卖家名指已核实的非平台卖家或 Amazon Now，Amazon.sa 不写进 Note；不写缺货、OOS、核验失败、日期、正常自营说明、发货方、运费或成色。页面显示剩余库存标识（如 Amazon 的 Only N left in stock）时，Note 写 `N left`，数字以页面为准（如仅剩 1 件写 `1 left`）；同时有已核实卖家（非平台卖家或 Amazon Now）时写 `sold by <卖家名>; N left`。卖家未知不能猜名称，相关证据和问题另存报告。
 - **异常标注分三档**：①当天价格有变动（与昨日相比，两日均为数字售价且数值不同）：不写备注、不标黄，只把当天 Price（Noon）/ Offer Price（Amazon）格的数字标红（字体颜色 RGB 1,0,0）；只标售价格，MSRP 格不标红；缺货/OOS 状态变化不标红。②卖家变化、buy box 变化：不写备注、不标黄；Note 格按正常规则写当前卖家（如 `sold by <实际卖家>`），buy box 格写当前值，变化通过与昨日组对比可见。③页面加载失败、被拦截、未核实、需人工审核：这是唯一标黄加备注的情形，当天 Note 格背景填黄色（RGB 1,1,0），并在该格单元格备注写明原因，如「页面被拦截，未核实」「页面加载失败，未核实」。已确认缺货只在 Price/Offer 格写 `OOS`，不写备注、不标黄；EOL 行整行留空、不标注。Noon 没有卖家/buy box 概念，只适用价格变动与打不开两项。黄色与红色只出现在当天组，不改历史组。
 - **列宽合适**：写完所有数据后，把当天 Note 列宽调到刚好完整显示格子里最长一条文本（只按格子里的文字算，单元格备注里的文字不占列宽；也不要设得过宽）。先执行自动列宽，再按最长文本核对：不够加宽、太宽收窄，最后读回列宽核实。只做自动列宽不可靠，必须再核对一次。Amazon 的 MSRP / Offer Price / buy box 三列列宽固定：MSRP 136px、Offer Price 132px、buy box 132px（以 2026/11/22 组为准）；新建日期组时按此固定值设置，不随内容自动调整；复用组若宽度被改动，恢复为此固定值。
 - 同日状态恢复时，把当天Price / Offer Price中的OOS替换为已核实数字售价；仅在卖家已核实后更新当天卖家Note。历史组保持不变。当天旧缺货长备注、旧巡店失败说明等，只有归属可确定为巡店写入时才可按本次证据清理，不迁移到历史。
@@ -109,7 +109,7 @@ description: >-
 
 > 按沙特电商巡店SOP只核查Amazon，确认Riyadh后更新原表并复核。
 
-> 使用 $saudi-store-audit 只复查上次失败行；确认缺货在Price / Offer Price填OOS，Note只写实际非平台卖家的sold by名称，Noon页面不可用且Status=EOL时当天三项留空。
+> 使用 $saudi-store-audit 只复查上次失败行；确认缺货在Price / Offer Price填OOS，Note只写已核实卖家（非平台卖家或 Amazon Now）的sold by名称，Amazon.sa 留空，Noon页面不可用且Status=EOL时当天三项留空。
 
 ## 每日自动巡店
 
