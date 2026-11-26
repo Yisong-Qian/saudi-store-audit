@@ -63,9 +63,9 @@ description: >-
 ### Amazon.sa
 
 - **先确认配送地区为Riyadh, Saudi Arabia。** 已显示Riyadh且站点为Amazon.sa即可复用设置；逐页确认地区未丢失。不能将其他地区报价写成Riyadh结果。
-- **只记页面打开时默认展示的那档报价**：MSRP(SAR)填该档报价对应的可见划线价（List Price / Was / Bundle List Price），无则留空；Offer Price填该档报价的当前商品价。默认展示的报价就是主购买框里的价格（可能是 Amazon.sa 一次性购买、Amazon Now 或第三方卖家）；不要去翻折叠项、购买选项（See All Buying Options）或切换购买方式去找别的档位。页面同时提供「One-time purchase」（Amazon.sa）和「Amazon Now」时，以默认展示的那档为准，不再优先取 Amazon.sa。
+- **以用户 Chrome 的默认视图为准，优先取一次性购买（Amazon.sa）**：用户登录的 Chrome 打开页面时，默认选中的是一次性购买（One-time purchase，Amazon.sa）；只有没有一次性购买选项时，默认才是 Amazon Now。云端匿名浏览器默认选中的是 Amazon Now，与用户看到的不一致，不能直接取云端默认档。因此打开页面后：若页面有一性购买选项，选中它再读价（取其价格、List Price、卖家与 buy box 判定）；只有没有一次性购买选项时，才取 Amazon Now 的默认报价。两种方式的价格与 List Price 可能不同，记录所选方式对应的价格。一次性购买选项必须在页面上实际看到才记录；看不到就不得记录该价格。
 - **规格匹配**：页面有多个规格/尺寸/款式选项时，记价前必须确认当前选中的规格名与 List Price 与表里该行一致（规格名、List Price 都对上）；页面默认选中其他规格时，切换到正确规格再读价；绝不从规格选项列表里取其他规格的价格。套装（Kit/Bundle/2Pack）须确认选中款式确为表里该套装，单只装与多件装不得混淆。
-- **buy box 判定**：按默认展示那档报价的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；确实无法判定卖家/发货方时留空并记报告。
+- **buy box 判定**：按所记录的那档报价（一性购买优先）的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；确实无法判定卖家/发货方时留空并记报告。
 - **Note 只写非平台卖家**：卖家为 Amazon.sa 或 Amazon Now 时 Note 留空；实际非平台卖家（包括 Amazon UAE）已核实时，Note 只写 `sold by 实际卖家名`。卖家未知不能猜名称。页面显示剩余库存标识时追加 `N left`（见“每日刷新与卖家Note”一节），两者都满足时合并为 `sold by <实际卖家名>; N left`。
 - 页面明确显示 `currently unavailable` 或明确等价缺货提示，且没有当前可售报价时，Offer Price填文本 `OOS`，buy box=0。MSRP仍仅填可核实的可见划线价，无则留空；Note只记录已核实的实际非平台卖家，不写缺货状态。
 - **除缺货外，页面主购买框没有展示价格时，整行留空**：页面只显示“No featured offers available”或类似提示、主购买框无价格时，不打开 See All Buying Options 找价，不记录购买选项里的第三方报价；当天 MSRP、Offer Price、buy box、Note 四项全部留空。页面显示“from SAR X”（如“2 options from SAR185.00”）时，X 就是展示的价格，按默认报价处理，不按此留空。
