@@ -63,14 +63,13 @@ description: >-
 ### Amazon.sa
 
 - **先确认配送地区为Riyadh, Saudi Arabia。** 已显示Riyadh且站点为Amazon.sa即可复用设置；逐页确认地区未丢失。不能将其他地区报价写成Riyadh结果。
-- MSRP(SAR)填可见划线价，无则留空；在售时Offer Price填当前选中商品价。
-- 存在默认报价时，Shipper / Seller合并显示Amazon.sa，或发货方与卖家分列且均明确为Amazon.sa，buy box=1。
-- 发货方或卖家明确不是Amazon.sa，buy box=0。实际非Amazon.sa卖家已核实时，Note只写 `sold by 实际卖家名`；卖家确为Amazon.sa但发货方不是时，Note留空，发货方证据记入巡店记录。Delivered/Fulfilled by Amazon.sa不足以判1；Amazon UAE、Amazon.ae、Amazon Resale不能自动等同Amazon.sa。
-- **Amazon.sa 优先于 Amazon Now**：页面同时提供「One-time purchase」（Amazon.sa）和「Amazon Now」两种购买方式时，以 Amazon.sa 的一次性购买选项为准（取其价格、卖家与 buy box 判定），即使 Amazon Now 是默认选中项；只有没有 Amazon.sa 选项时，才取 Amazon Now 的报价。两种方式的价格与 List Price 可能不同，记录所选方式对应的价格。**Amazon.sa 一次性购买选项必须在页面上实际看到才记录**：若页面上没有该选项（包括没有该价格），不得记录看不到的价格，改记默认报价。
+- **只记页面打开时默认展示的那档报价**：MSRP(SAR)填该档报价对应的可见划线价（List Price / Was / Bundle List Price），无则留空；Offer Price填该档报价的当前商品价。默认展示的报价就是主购买框里的价格（可能是 Amazon.sa 一次性购买、Amazon Now 或第三方卖家）；不要去翻折叠项、购买选项（See All Buying Options）或切换购买方式去找别的档位。页面同时提供「One-time purchase」（Amazon.sa）和「Amazon Now」时，以默认展示的那档为准，不再优先取 Amazon.sa。
 - **规格匹配**：页面有多个规格/尺寸/款式选项时，记价前必须确认当前选中的规格名与 List Price 与表里该行一致（规格名、List Price 都对上）；页面默认选中其他规格时，切换到正确规格再读价；绝不从规格选项列表里取其他规格的价格。套装（Kit/Bundle/2Pack）须确认选中款式确为表里该套装，单只装与多件装不得混淆。
+- **buy box 判定**：按默认展示那档报价的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；确实无法判定卖家/发货方时留空并记报告。
+- **Note 只写非平台卖家**：卖家为 Amazon.sa 或 Amazon Now 时 Note 留空；实际非平台卖家（包括 Amazon UAE）已核实时，Note 只写 `sold by 实际卖家名`。卖家未知不能猜名称。页面显示剩余库存标识时追加 `N left`（见“每日刷新与卖家Note”一节），两者都满足时合并为 `sold by <实际卖家名>; N left`。
 - 页面明确显示 `currently unavailable` 或明确等价缺货提示，且没有当前可售报价时，Offer Price填文本 `OOS`，buy box=0。MSRP仍仅填可核实的可见划线价，无则留空；Note只记录已核实的实际非平台卖家，不写缺货状态。
-- 无默认/featured offer **不等于缺货**：打开See All Buying Options，核对同一产品/变体、现货、成色、卖家与运费。记录按商品价加运费排序最低的在售新品的商品价，buy box=0；只有二手报价时在详细记录和报告说明成色，不能冒充新品。Note仍仅记录实际非平台卖家，不写运费、成色或无默认报价说明。
-- 价格可核实但卖家或发货方未显示：先展开相关购买信息或重试；仍无法核实时可填当天已确认价格。若已知一方非Amazon.sa或已确认无可售/默认报价，buy box仍可按证据填0；否则无法判断的新buy box留空，当天组已有值则保留，并在报告明确本次未核实。Note不写核验失败说明，不复制昨天的buy box或卖家。
+- **除缺货外，页面主购买框没有展示价格时，整行留空**：页面只显示“No featured offers available”或类似提示、主购买框无价格时，不打开 See All Buying Options 找价，不记录购买选项里的第三方报价；当天 MSRP、Offer Price、buy box、Note 四项全部留空。页面显示“from SAR X”（如“2 options from SAR185.00”）时，X 就是展示的价格，按默认报价处理，不按此留空。
+- 价格可核实但卖家或发货方未显示：先展开相关购买信息或重试；仍无法核实时可填当天已确认价格；buy box 仍按证据填 0（非 Amazon.sa 主体已确认时）或留空（无法判断时），并在报告明确本次未核实。Note不写核验失败说明，不复制昨天的buy box或卖家。
 
 ## 每日刷新与卖家Note
 
