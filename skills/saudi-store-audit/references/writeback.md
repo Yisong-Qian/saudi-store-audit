@@ -6,7 +6,7 @@
 
 | 本次证据 | 当天MSRP | 当天售价 | 当天buy box | 当天Note |
 |---|---|---|---|---|
-| 在售，有划线价与售价 | 填所记录报价（一性购买优先）对应的划线价 | 填所记录报价的数字价 | 所记录报价 Shipper/Seller 均为 Amazon.sa 则 1，否则 0 | 卖家为 Amazon Now 或已核实非平台卖家时填sold by名称，Amazon.sa 留空，否则空白 |
+| 在售，有划线价与售价 | 填所记录报价（用户 Chrome 默认选中档）对应的划线价 | 填所记录报价的数字价 | 所记录报价 Shipper/Seller 均为 Amazon.sa 则 1，否则 0 | 卖家为 Amazon Now 或已核实非平台卖家时填sold by名称，Amazon.sa 留空，否则空白 |
 | 在售，完整页面确认无划线价 | 留空 | 填所记录报价的数字价 | 按所记录报价主体 | 同上 |
 | 明确缺货，包括仍残留数字售价 | 可核实划线价或空白 | 文本OOS | 无当前可售报价则0 | 卖家为 Amazon Now 或已核实非平台卖家时填sold by名称，Amazon.sa 留空，否则空白 |
 | Noon显示This product is not available且Status=EOL | 空白 | 空白 | 不适用 | 空白；优先于OOS和卖家规则 |
@@ -19,7 +19,7 @@
 
 Noon的Status按字段表头定位，不固定列号；同日回写前重读。EOL留空例外要求原链接打开的商品页显示指定不可用提示且该行Status为EOL，EOL但仍在售的商品正常查价。
 
-Amazon先确认Riyadh；以用户 Chrome 的默认视图为准：页面有一性购买（Amazon.sa）选项时取该档报价，没有该选项时取 Amazon Now 的默认报价（云端匿名浏览器默认是 Amazon Now，与用户看到的不一致，不要直接取云端默认档）；主购买框无价格展示且非缺货时整行留空。currently unavailable且无当前可售报价才写OOS。所记录报价的Shipper / Seller均为Amazon.sa才填1，否则填0；仍未知不能猜0。
+Amazon先确认Riyadh；以用户 Chrome 的默认视图为准：取用户 Chrome 默认选中的购买方式的价格，不固定优先一次性购买（Amazon.sa）；如果用户默认选中的是 Amazon Now，即使页面有一性购买选项，也取 Amazon Now 的价格（云端匿名浏览器默认是 Amazon Now，与用户看到的不一致，不要直接取云端默认档；各产品的默认购买方式以本地配置 `references/store-config.local.json` 里的 `default_purchase_option` 记录为准）；主购买框无价格展示且非缺货时整行留空。currently unavailable且无当前可售报价才写OOS。所记录报价的Shipper / Seller均为Amazon.sa才填1，否则填0；仍未知不能猜0。
 
 “本次未核实”不能变成0、OOS、确认不存在或历史值。本次生成的Note格子只允许 `sold by <卖家名>`、`N left`、两者组合 `sold by <卖家名>; N left`，或空白；其中卖家名指已核实的非平台卖家或 Amazon Now，Amazon.sa 不写进 Note；页面显示剩余库存标识（如 Only N left in stock）时写 `N left`，数字以页面为准（如仅剩 1 件写 `1 left`）；卖家为 Amazon.sa 或没有实际卖家信息时不写卖家名；不写缺货、OOS、发货方、运费、成色或日期；需人工审核的失败说明写进该格的单元格备注（见异常标注一节），详细证据和失败原因另存报告。商品价不包含另列运费。
 
