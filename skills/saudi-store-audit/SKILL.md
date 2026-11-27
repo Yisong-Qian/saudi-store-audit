@@ -65,11 +65,11 @@ description: >-
 - **先确认配送地区为Riyadh, Saudi Arabia。** 已显示Riyadh且站点为Amazon.sa即可复用设置；逐页确认地区未丢失。不能将其他地区报价写成Riyadh结果。
 - **以用户登录后的默认视图为准，取默认选中的购买方式的价格**：云端浏览器（Environment 1，默认 profile）已登录用户的 Amazon 账号，页面打开时默认选中的购买方式与用户 Chrome 一致。核查 Amazon 页面时先确认已登录（页眉显示“Hello, Qian”）：已登录时，直接读取页面打开时默认选中的购买方式的价格，不固定优先一次性购买（One-time purchase，Amazon.sa）；如果默认选中的是 Amazon Now，即使页面有一性购买选项，也取 Amazon Now 的价格。所选购买方式的选项必须在页面上实际看到才记录；看不到就不得记录该价格。两种方式的价格与 List Price 可能不同，记录所选方式对应的价格。若发现未登录（页眉显示“Hello, sign in”或要求登录）：不要取匿名浏览器的默认档（匿名默认是 Amazon Now，与用户看到的不一致），也不要按本地配置 `references/store-config.local.json` 里的 `default_purchase_option` 取值——停止 Amazon 部分的核查，并在报告里注明登录已过期、请用户重新登录，等她重新登录后再补跑当天的 Amazon 部分（本地配置只记录已核实的默认购买方式作参考，不作登录失效时的取值依据）。Noon 不需要登录，正常进行。不要在巡店中自行重新登录（登录验证码发到用户手机 WhatsApp，需她本人提供）。
 - **规格匹配**：页面有多个规格/尺寸/款式选项时，记价前必须确认当前选中的规格名与 List Price 与表里该行一致（规格名、List Price 都对上）；页面默认选中其他规格时，切换到正确规格再读价；绝不从规格选项列表里取其他规格的价格。套装（Kit/Bundle/2Pack）须确认选中款式确为表里该套装，单只装与多件装不得混淆。
-- **buy box 判定**：按所记录的那档报价（用户 Chrome 默认选中的那档）的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；确实无法判定卖家/发货方时留空并记报告。
+- **buy box 判定**：按所记录的那档报价（用户 Chrome 默认选中的那档）的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；buy box=0 时 Note 必须写明卖家（`sold by Amazon Now` 或 `sold by <卖家名>`），不能留空——0 意味着有非 Amazon.sa 卖家，Note 须写清是谁；若卖家名无法确认，buy box 留空、不填 0。确实无法判定卖家/发货方时留空并记报告。
 - **Note 卖家写法**：卖家为 Amazon.sa 时 Note 留空；卖家为 Amazon Now 时 Note 写 `sold by Amazon Now`；实际非平台卖家（包括 Amazon UAE）已核实时，Note 只写 `sold by 实际卖家名`。卖家未知不能猜名称。页面显示剩余库存标识时追加 `N left`（见“每日刷新与卖家Note”一节），两者都满足时合并为 `sold by <实际卖家名>; N left`。
-- 页面明确显示 `currently unavailable` 或明确等价缺货提示，且没有当前可售报价时，Offer Price填文本 `OOS`，buy box=0。MSRP仍仅填可核实的可见划线价，无则留空；Note只记录已核实的实际非平台卖家，不写缺货状态。
+- 页面明确显示 `currently unavailable` 或明确等价缺货提示，且没有当前可售报价时，Offer Price填文本 `OOS`，buy box 留空（缺货没有可判的 buy box，不填 0）。MSRP仍仅填可核实的可见划线价，无则留空；Note只记录已核实的实际非平台卖家，不写缺货状态。
 - **除缺货外，页面主购买框没有展示价格时，整行留空**：打开页面后，主购买框里看不到价格（也没有卖家展示），就当天 MSRP、Offer Price、buy box、Note 四项全部留空；不要点开 See All Buying Options 找价，也不要取页面其他位置的价格（如规格/尺寸选择器里的 “2 options from SAR X”、推荐商品区的价格）。页面只显示“No featured offers available”或类似提示、主购买框无价格时，同样整行留空。主购买框本身显示“from SAR X”（如“2 options from SAR185.00”）时，X 就是展示的价格，按默认报价处理；但如果主购买框完全没有价格和卖家展示、价格只出现在规格/尺寸选择器里（如 “2 options from SAR296.23”），则不取该价格，整行留空。
-- 价格可核实但卖家或发货方未显示：先展开相关购买信息或重试；仍无法核实时可填当天已确认价格；buy box 仍按证据填 0（非 Amazon.sa 主体已确认时）或留空（无法判断时），并在报告明确本次未核实。Note不写核验失败说明，不复制昨天的buy box或卖家。
+- 价格可核实但卖家或发货方未显示：先展开相关购买信息或重试；仍无法核实时可填当天已确认价格；buy box 仍按证据填 0（非 Amazon.sa 卖家已确认、且卖家名能写进 Note 时）或留空（无法判断卖家或写不清卖家名时），并在报告明确本次未核实。buy box=0 时 Note 必须写明卖家，不能留空。Note不写核验失败说明，不复制昨天的buy box或卖家。
 
 ## 每日刷新与卖家Note
 
@@ -109,7 +109,7 @@ description: >-
 
 > 按沙特电商巡店SOP只核查Amazon，确认Riyadh后更新原表并复核。
 
-> 使用 $saudi-store-audit 只复查上次失败行；确认缺货在Price / Offer Price填OOS，Note只写已核实卖家（非平台卖家或 Amazon Now）的sold by名称，Amazon.sa 留空，Noon页面不可用且Status=EOL时当天三项留空。
+> 使用 $saudi-store-audit 只复查上次失败行；确认缺货在Price / Offer Price填OOS，buy box 留空，Note只写已核实卖家（非平台卖家或 Amazon Now）的sold by名称，Amazon.sa 留空；buy box=0 时 Note 必须写明卖家，不能留空。Noon页面不可用且Status=EOL时当天三项留空。
 
 ## 每日自动巡店
 
