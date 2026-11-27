@@ -39,7 +39,7 @@ Amazon先确认Riyadh；以用户登录后的默认视图为准：云端浏览�
 
 只写当天组，不改历史组与人工内容，写后随当批回写一起读回复核。
 
-- **当天价格有变动只标红，不写备注、不标黄**：与昨日相比、两日均为数字售价且数值不同时，把当天 Price（Noon）/ Offer Price（Amazon）格的数字字体标红（foregroundColorStyle.rgbColor RGB 1,0,0）；只标售价格，MSRP 格不标红；缺货/OOS 状态变化不标红。Note 格不写价格变动说明。格式请求用 repeatCell，fields 仅为 userEnteredFormat.textFormat.foregroundColorStyle；不要用已废弃的 foregroundColor 字段，用它写出的红字会掉色。标红后读回核实红字确实存在。去掉红字时（例如基准组改变后某行不再算价格变动），把 foregroundColorStyle 设为 {"rgbColor": {}}（空的 rgbColor 对象），恢复默认黑色；不要把 foregroundColorStyle 设成空对象 {}——空对象会让字体变白、数字在表里看不见（2026-11-27 行 17/25 的 399 因此“隐藏”）。去掉后读回核实字体恢复默认色、数值仍在。
+- **当天价格有变动只标红，不写备注、不标黄**：与昨日相比、两日均为数字售价且数值不同时，把当天 Price（Noon）/ Offer Price（Amazon）格的数字字体标红（foregroundColorStyle.rgbColor RGB 1,0,0）；只标售价格，MSRP 格不标红；缺货/OOS 状态变化不标红。Note 格不写价格变动说明。格式请求用 repeatCell，fields 仅为 userEnteredFormat.textFormat.foregroundColorStyle；不要用已废弃的 foregroundColor 字段，用它写出的红字会掉色。标红后读回核实红字确实存在。去掉红字时（例如基准组改变后某行不再算价格变动），把 foregroundColorStyle 设为 {"rgbColor": {}}（空的 rgbColor 对象），恢复默认黑色；不要把 foregroundColorStyle 设成空对象 {}——空对象会让字体变白、数字在表里看不见（2026-11-27 行 17/25 的 399 因此“隐藏”）。去掉后读回核实字体恢复默认色、数值仍在。**字体颜色铁律**：当天组所有数据格的文字一律黑色（foregroundColorStyle {"rgbColor": {}}），只有当天价格变动的 Offer Price 格标红；回写结束后逐格核对当天组字体颜色，凡是 foregroundColorStyle 为空对象 {} 的格子一律改成 {"rgbColor": {}}，读回核实可见；红色只允许出现在当天价格变动的 Offer Price 格上。
 - **卖家变化、buy box 变化不写备注、不标黄**：Note 格按正常规则写当前卖家（如 `sold by <卖家名>`，Amazon.sa 除外）或空白，buy box 格写当前值；变化通过与昨日组对比可见，不再另写说明。
 - **唯一标黄加备注的情形是需人工审核**：页面加载失败、被拦截、未核实的行，当天 Note 格背景填黄色（RGB 1,1,0），并在该格单元格备注写明原因，如「页面加载失败，未核实」「页面被拦截，未核实」。其他情形一律不写备注、不标黄。黄色格式请求用 repeatCell，fields 仅为 userEnteredFormat.backgroundColor。
 - 已确认缺货只在售价写 `OOS`，不写备注、不标黄；EOL 三项留空，不标注。Noon 只适用价格变动与打不开两项。
