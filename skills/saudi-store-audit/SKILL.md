@@ -68,7 +68,7 @@ description: >-
 - **buy box 判定**：按所记录的那档报价（用户 Chrome 默认选中的那档）的 Shipper / Seller 判定——发货方与卖家同时为 Amazon.sa 时 buy box=1，否则 buy box=0（包括 Amazon Now、Amazon UAE / Amazon.ae / Amazon Resale、第三方卖家）。Delivered/Fulfilled by Amazon.sa 不足以判 1；Amazon UAE、Amazon.ae、Amazon Resale 不能自动等同 Amazon.sa。页面展示价格时 buy box 填 1 或 0；确实无法判定卖家/发货方时留空并记报告。
 - **Note 卖家写法**：卖家为 Amazon.sa 时 Note 留空；卖家为 Amazon Now 时 Note 写 `sold by Amazon Now`；实际非平台卖家（包括 Amazon UAE）已核实时，Note 只写 `sold by 实际卖家名`。卖家未知不能猜名称。页面显示剩余库存标识时追加 `N left`（见“每日刷新与卖家Note”一节），两者都满足时合并为 `sold by <实际卖家名>; N left`。
 - 页面明确显示 `currently unavailable` 或明确等价缺货提示，且没有当前可售报价时，Offer Price填文本 `OOS`，buy box=0。MSRP仍仅填可核实的可见划线价，无则留空；Note只记录已核实的实际非平台卖家，不写缺货状态。
-- **除缺货外，页面主购买框没有展示价格时，整行留空**：页面只显示“No featured offers available”或类似提示、主购买框无价格时，不打开 See All Buying Options 找价，不记录购买选项里的第三方报价；当天 MSRP、Offer Price、buy box、Note 四项全部留空。页面显示“from SAR X”（如“2 options from SAR185.00”）时，X 就是展示的价格，按默认报价处理，不按此留空。
+- **除缺货外，页面主购买框没有展示价格时，整行留空**：页面只显示“No featured offers available”或类似提示、主购买框无价格时，不打开 See All Buying Options 找价，不记录购买选项里的第三方报价；当天 MSRP、Offer Price、buy box、Note 四项全部留空。主购买框本身显示“from SAR X”（如“2 options from SAR185.00”）时，X 就是展示的价格，按默认报价处理；但如果主购买框完全没有价格和卖家展示、价格只出现在规格/尺寸选择器里（如 “2 options from SAR296.23”），则不取该价格，整行留空。
 - 价格可核实但卖家或发货方未显示：先展开相关购买信息或重试；仍无法核实时可填当天已确认价格；buy box 仍按证据填 0（非 Amazon.sa 主体已确认时）或留空（无法判断时），并在报告明确本次未核实。Note不写核验失败说明，不复制昨天的buy box或卖家。
 
 ## 每日刷新与卖家Note
