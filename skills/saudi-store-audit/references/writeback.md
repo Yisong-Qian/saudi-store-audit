@@ -43,7 +43,7 @@ Amazon先确认Riyadh；以用户登录后的默认视图为准：云端浏览�
 - **卖家变化、buy box 变化不写备注、不标黄**：Note 格按正常规则写当前卖家（如 `sold by <卖家名>`，Amazon.sa 除外）或空白，buy box 格写当前值；变化通过与昨日组对比可见，不再另写说明。
 - **唯一标黄加备注的情形是需人工审核**：页面加载失败、被拦截、未核实的行，当天 Note 格背景填黄色（RGB 1,1,0），并在该格单元格备注写明原因，如「页面加载失败，未核实」「页面被拦截，未核实」。其他情形一律不写备注、不标黄。黄色格式请求用 repeatCell，fields 仅为 userEnteredFormat.backgroundColor。
 - 已确认缺货只在售价写 `OOS`，不写备注、不标黄；EOL 三项留空，不标注。Noon 只适用价格变动与打不开两项。
-- 列宽合适：写完所有数据后，把当天 Note 列宽调到刚好完整显示格子里最长一条文本；只按格子里的文字算，单元格备注里的文字不占列宽，也不要设得过宽。先执行自动列宽，再按最长文本核对：不够加宽、太宽收窄，最后读回列宽核实。只做自动列宽不可靠，必须再核对一次。
+- 列宽合适：写完所有数据后，把当天 Note 列宽调到刚好完整显示格子里最长一条文本；只按格子里的文字算，单元格备注里的文字不占列宽，也不要设得过宽。先执行自动列宽，再按最长文本核对：按字符估算所需宽度——中文每字约 13px、英文/数字每字约 7px、阿拉伯文每字约 8px，另加 10px 边距；自动列宽给出的值若小于估算值，以估算值为准（自动列宽会低估中文宽度）；不够加宽、太宽收窄，最后读回列宽核实。只做自动列宽不可靠，必须再核对一次。列宽以列里当前最长一条文本为准，用户在巡店后又往 Note 列里加了更长的文字时，也按同样方法把列宽加宽到能完整显示。
 - **MSRP / Offer Price / buy box 列宽固定**：Amazon 当天组的 MSRP 列宽 136px、Offer Price 列宽 132px、buy box 列宽 132px（以 2026/11/22 组 DK:DN 为准）；新建日期组时用 updateDimensionProperties 按此固定值设置，不随内容自动调整；复用组若宽度被改动，恢复为此固定值；设置后读回列宽核实。Note 列仍按最长文本动态调整，不固定。
 - 备注写入用 updateCells，fields 包含 note；只改备注时不碰值与格式，需要同时改值时 fields 用 userEnteredValue,note。只标注本次实际遇到的需人工审核行，不写推测。
 - 新建组复制样式时不带入上一组的黄色高亮、红色字体与单元格备注；回写前检查当天 Note 列与价格列，残留的上一组高亮/红色字体/备注要清除（只清当天组，不动历史组），清除后读回复核。还要检查当天组数据行（第 3 行起）的数字格式不得为 DATE：复制样式可能把上一组空单元格残留的日期格式带进来，导致数字售价粘贴到别处时显示为日期；发现 DATE 格式就改成 NUMBER（pattern "0"），清除后读回复核。
@@ -107,7 +107,7 @@ Amazon先确认Riyadh；以用户登录后的默认视图为准：云端浏览�
 
 1. 对当天Price / Offer Price从首个产品行到本次最后产品行，用repeatCell仅设置userEnteredFormat.horizontalAlignment=RIGHT，fields仅为userEnteredFormat.horizontalAlignment。包括数字、OOS及空白正文；不覆盖字段/日期行、MSRP或buy box，不修改数字格式、字体、底色、边框、验证或值。每批后读回OOS的effectiveFormat.horizontalAlignment应为RIGHT；轮次结束复核整个售价正文。
 2. 对当天Note从首个产品行到本次最后产品行，用repeatCell仅设置userEnteredFormat.textDirection=LEFT_TO_RIGHT、userEnteredFormat.horizontalAlignment=LEFT，fields仅为userEnteredFormat.textDirection,userEnteredFormat.horizontalAlignment。新建、复用及同日重跑均执行，包括空白正文，不覆盖Note表头、日期行或其他列。有卖家的备注以英文前缀sold by开始，店铺原名随后显示；只有 `N left` 的备注只写该文本；阿语店名内部保持自然阿语阅读顺序。保留字符串原文，不翻译、不反转店名字母/单词、不插入LRM/RLM或其他隐藏方向控制字符，不把整表改成从左到右。
-3. 每轮回写结束、旧自动Note清理完成后，检查当天Note正文。存在文字时保持单行，若已有WRAP则只对当天Note正文把wrapStrategy改为OVERFLOW_CELL，fields只用userEnteredFormat.wrapStrategy；先完成上述Note方向/左对齐，再对该一个Note列使用autoResizeDimensions，按完整卖家名适配；随后按当天最长一条格子文本核对列宽，不够加宽、太宽收窄，读回列宽核实（只按格子里的文字算，单元格备注不占列宽）。保留字号、行高和字符串，不改为省略号、不靠溢出到邻列显示。
+3. 每轮回写结束、旧自动Note清理完成后，检查当天Note正文。存在文字时保持单行，若已有WRAP则只对当天Note正文把wrapStrategy改为OVERFLOW_CELL，fields只用userEnteredFormat.wrapStrategy；先完成上述Note方向/左对齐，再对该一个Note列使用autoResizeDimensions，按完整卖家名适配；随后按当天最长一条格子文本核对列宽：按字符估算所需宽度——中文每字约 13px、英文/数字每字约 7px、阿拉伯文每字约 8px，另加 10px 边距；自动列宽给出的值若小于估算值，以估算值为准（自动列宽会低估中文宽度，不能只信它）；不够加宽、太宽收窄，读回列宽核实（只按格子里的文字算，单元格备注不占列宽）。列宽以列里当前最长一条文本为准——用户在巡店后又往 Note 列里加了更长的文字时，也按同样方法把列宽加宽到能完整显示。保留字号、行高和字符串，不改为省略号、不靠溢出到邻列显示。
 4. 当天Note正文全空时不自动缩窄：复用组保留现有宽度，新组沿用模板宽度。历史Note列和其他列不参与自动列宽，也不整表autofit。日期合并范围与表头样式不变。
 5. 数值请求、售价水平对齐请求、Note方向/左对齐请求、单行显示请求和单列列宽请求分别记录；复核允许变化仅为这些字段和目标范围。列宽/格式修复不得计为新增网页核验或新查价。Google Sheets正常缩放下检查OOS、最长英文Note、阿拉伯文Note及相邻列，确认sold by在左且店名随后完整单行可见。
 
